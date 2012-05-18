@@ -45,7 +45,27 @@ comp n =
     where small = sum(smallSide n) 
           big = sum(bigSide n) 
                 
+bigSideR n sum1
+  | n==0 = return sum1
+  | otherwise = 
+    if is_integral_area n 1 then
+      bigSideR (n-1) (3*n+1+sum1) 
+    else 
+      bigSideR (n-1) sum1
+smallSideR n sum
+  | n==1 = return sum
+  | otherwise = 
+    if is_integral_area n (-1) then
+      smallSideR (n-1) (3*n-1+sum) 
+    else 
+      smallSideR (n-1) sum
+
+comp2 n =
+  small `par` (big `pseq` small + big)
+    where small = smallSideR( n 0) 
+          big = bigSideR( n 0) 
+      
 main = 
   do
     [d] <- map read `fmap` getArgs
-    print(comp d)
+    print (comp2 d)
