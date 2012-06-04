@@ -8,7 +8,7 @@ $(TARGET): CC=$(CXX)
 
 
 CXXFLAGS=-O3 -Wall
-#CXXFLAGS=-g
+#CXXFLAGS=-g -Wall
 
 clean:
 	rm -f *.o

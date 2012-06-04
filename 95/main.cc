@@ -3,6 +3,11 @@
 #include <cstdlib>
 using namespace std;
 
+//#define log(x) cout<<x<<endl
+
+#define log(x) /**/
+
+
 typedef unsigned long number_t;
 
 number_t get_bigger_than_root(number_t target){
@@ -34,7 +39,7 @@ number_t sum_divisors(number_t target){
       if(max!=i){
 	sum+=max;
       }
-      //      cout<<"got "<<i<<" "<<max<<" "<<sum<<endl;
+      //      log("got "<<i<<" "<<max<<" "<<sum);
     }
   }
   return sum;
@@ -58,11 +63,14 @@ void count_loop_size(number_t start){
   size_t count=1;
   number_t smallest=start;
   for(number_t i = chain_links[start].next;i!=start;++count,i=chain_links[i].next){
-    cout<<"count_loop_size "<<start<<" "<<i<<endl;
+    log("count_loop_size "<<start<<" "<<i);
     smallest=min(smallest,i);
   }
-  if(longest<=count){
-    smallest_ever=min(smallest_ever,smallest);
+  log("counted size "<<count);
+  if(longest<count){
+    longest=count;
+    smallest_ever=smallest;
+    cout<<"smallest ever force "<<smallest_ever<<" "<<count<<endl;
   }
 }
 
@@ -70,6 +78,10 @@ void count_loop_size(number_t start){
 void detect_loop(number_t point){
   chain_id++;
   do{
+    log("detect_loop "<<chain_id<<" "<<point);
+    if(point > max1){
+      return;
+    }
     data_t& data=chain_links[point];
     if(data.id!=0){
       if(data.id==chain_id){
@@ -82,11 +94,12 @@ void detect_loop(number_t point){
       }
     }
     data.id=chain_id;
+    point=data.next;
   }while(true);
 } 
 void follow_chain(number_t point){
   while(true){
-    cout<<"follow_chain "<<point<<endl;
+    log("follow_chain "<<point);
     if(point>max1){
       return;
     }
@@ -95,7 +108,7 @@ void follow_chain(number_t point){
       //new link
       point=data.next=sum_divisors(point);
     } else {
-      //cout<<"found loop "<<point<<" "<<chain_links[point].first<<endl;
+      //log("found loop "<<point<<" "<<chain_links[point].first);
       //exit(0);
       detect_loop(point);
       return;
@@ -104,14 +117,17 @@ void follow_chain(number_t point){
 }
 int main(){
   /*number_t data[]={12496 , 14288 , 15472 , 14536 , 14264};
-  for(int i=0;i<5;i++){
-    cout<<data[i]<<" "<<sum_divisors(data[i])<<endl;
+    for(int i=0;i<5;i++){
+    log(data[i]<<" "<<sum_divisors(data[i]));
     }*/
-  //cout<<4<<" "<<sum_divisors(4)<<endl;
+  //log(4<<" "<<sum_divisors(4));
   //return 0;
   for(number_t i = 1;i<=max1;i++){
-    cout<<i<<endl;
+    log(i);
     follow_chain(i);
+    if(i%1000==0){
+      cout<<i<<endl;
+    }
   }
   cout<<smallest_ever<<endl;
   return 0;
