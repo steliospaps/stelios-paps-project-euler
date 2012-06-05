@@ -2,7 +2,7 @@
 #include <deque>
 #include <cstdlib>
 using namespace std;
-
+//14136
 //#define log(x) cout<<x<<endl
 
 #define log(x) /**/
@@ -51,12 +51,19 @@ struct data_t{
   number_t next;
   int id;
   data_t()
-    :next(0),
+    :next(1),
      id(0){}
 };
 deque<data_t > chain_links(max1+1);
-long chain_id=0;
+void init(){
+  for(number_t i=2;i<=(max1/2);i++){
+    for(number_t j=i*2;j<=max1;j+=i){
+      chain_links[j].next+=i;
+    }
+  }
+}
 
+long chain_id=0;
 number_t smallest_ever=max1;
 size_t longest=0;
 void count_loop_size(number_t start){
@@ -123,6 +130,7 @@ int main(){
     }*/
   //log(4<<" "<<sum_divisors(4));
   //return 0;
+  init();
   for(number_t i = 1;i<=max1;i++){
     log(i);
     follow_chain(i);
