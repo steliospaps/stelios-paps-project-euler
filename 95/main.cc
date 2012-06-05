@@ -97,10 +97,11 @@ void detect_loop(number_t point){
     point=data.next;
   }while(true);
 } 
-void follow_chain(number_t point){
+void follow_chain(const number_t start){
+  number_t point=start;
   while(true){
     log("follow_chain "<<point);
-    if(point>max1){
+    if(point>max1 || point<start){
       return;
     }
     data_t& data=chain_links[point];
