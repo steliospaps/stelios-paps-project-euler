@@ -16,7 +16,7 @@ clean:
 	rm -f *.o
 	rm -f $(TARGET) $(TESTS)
 
-test: CXXFLAGS+= -I../../libs/gtest-1.6.0/include 
+test: CXXFLAGS= -Wall -g -I../../libs/gtest-1.6.0/include 
 test: LDFLAGS+= -L../../libs/gtest-1.6.0/lib 
 test: LDLIBS+=  -lgtest -lgtest_main  -lpthread
 sudoku_test:sudoku.h
