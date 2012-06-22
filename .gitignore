@@ -3,5 +3,4 @@ main
 *.hi
 *.o
 result
-*.txt
 *_test
