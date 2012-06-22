@@ -4,3 +4,4 @@ main
 *.o
 result
 *.txt
+*_test
