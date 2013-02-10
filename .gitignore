@@ -4,3 +4,7 @@ main
 *.o
 result
 *_test
+target
+.settings
+.classpath
+.project
