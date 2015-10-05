@@ -5,10 +5,10 @@ import scala.annotation.tailrec
 
 object Solve extends App{
 	println("Hi!")
-  val p = new Poly(List(0,0,0,1))
+  val p = new Poly(List(1,-1,1,-1,1,-1,1,-1,1,-1,1))
   val points = for( i <- 1 to 10) yield (BigDecimal(i),p(i))
   println(points)
-  val ops = for( i <- 1 to 3) yield {
+  val ops = for( i <- 1 to 10) yield {
     val pf = new PolyFit(points.take(i))
     pf(i+1)
   }
